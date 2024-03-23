@@ -85,30 +85,6 @@ export default function RemoveBG() {
 
   return (
     <>
-      <Head>
-        <title>Remove Background - ThumbnailAI | AI Thumbnail Maker</title>
-        <meta charSet="utf-8"></meta>
-        <meta property="og:type" content="website" />
-        <meta
-          name="keywords"
-          content="background remover,
-          remove background ,
-          remove background from image ,
-          background removal ,
-          background remover free,
-          free background remover,
-          image background remover"
-        ></meta>
-        <meta
-          name="description"
-          content="Background Removal Made Easy! ThumbnailAI's Free Background Removal Tool lets you erase image backgrounds effortlessly. Download the result instantly, and enjoy clean, standout visuals for your content."
-        ></meta>
-
-        <script src="https://unpkg.com/@tensorflow/tfjs-core@3.3.0/dist/tf-core.js"></script>
-        <script src="https://unpkg.com/@tensorflow/tfjs-converter@3.3.0/dist/tf-converter.js"></script>
-        <script src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@3.3.0/dist/tf-backend-webgl.js"></script>
-        <script src="https://unpkg.com/@tensorflow-models/deeplab@0.2.1/dist/deeplab.js"></script>
-      </Head>
       <div className={classes.mainContainer}>
         <div className={classes.heroSection}>
           <div className={classes.heroContent}>
