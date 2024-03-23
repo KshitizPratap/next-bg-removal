@@ -50,7 +50,7 @@ export default function RemoveBG() {
     }
 
     return () => clearInterval(timerInstance);
-  }, [isProcessing, processMessage, isProcessing]);
+  }, [isProcessing, processMessage]);
 
   const processImage = useCallback(async (path) => {
     try {
