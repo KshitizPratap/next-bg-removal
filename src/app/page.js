@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import classes from "@/app/page.module.css";
 import { Roboto, Montserrat } from "next/font/google";
-import Head from "next/head";
+import imglyRemoveBackground from "@imgly/background-removal";
 import classNames from "classnames";
 
 const roboto = Roboto({
@@ -52,35 +52,55 @@ export default function RemoveBG() {
     return () => clearInterval(timerInstance);
   }, [isProcessing, processMessage]);
 
+  // const processImage = useCallback(async (path) => {
+  //   try {
+  //     setOriginalImageUrl(path);
+
+  //     const startTime = Date.now();
+
+  //     setStatus("init");
+
+  //     const config = {
+  //       output: {
+  //         format: "image/png",
+  //         quality: 1,
+  //       },
+  //     };
+
+  //     const imglyRemoveBackground = await import("@imgly/background-removal");
+
+  //     await imglyRemoveBackground.default(path, config).then((blob) => {
+  //       const url = URL.createObjectURL(blob);
+  //       const timeDiffInSeconds = (Date.now() - startTime) / 1000;
+  //       setInferenceTime(timeDiffInSeconds);
+  //       setHasProcessedImage(true);
+  //       setImageUrl(url);
+  //       setStatus("idle");
+  //     });
+  //   } catch (e) {
+  //     setHasProcessedImage(true);
+  //     console.log("[error]", e);
+  //   }
+  // }, []);
+
   const processImage = useCallback(async (path) => {
-    try {
-      setOriginalImageUrl(path);
+    setOriginalImageUrl(path);
 
-      const startTime = Date.now();
+    const response = await fetch(path);
+    const blob = await response.blob();
+    const startTime = Date.now();
 
-      setStatus("init");
-
-      const config = {
-        output: {
-          format: "image/png",
-          quality: 1,
-        },
-      };
-
-      const imglyRemoveBackground = await import("@imgly/background-removal");
-
-      await imglyRemoveBackground.default(path, config).then((blob) => {
-        const url = URL.createObjectURL(blob);
-        const timeDiffInSeconds = (Date.now() - startTime) / 1000;
-        setInferenceTime(timeDiffInSeconds);
-        setHasProcessedImage(true);
-        setImageUrl(url);
-        setStatus("idle");
-      });
-    } catch (e) {
+    setStatus("init");
+    imglyRemoveBackground(blob).then((blob) => {
+      // The result is a blob encoded as PNG. It can be converted to an URL to be used as HTMLImage.src
+      const url = URL.createObjectURL(blob);
+      const timeDiffInSeconds = (Date.now() - startTime) / 1000;
+      setInferenceTime(timeDiffInSeconds);
       setHasProcessedImage(true);
-      console.log("[error]", e);
-    }
+      // setImageUrl(URL.createObjectURL(url));
+      setImageUrl(url);
+      setStatus("idle");
+    });
   }, []);
 
   return (
