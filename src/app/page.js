@@ -143,7 +143,7 @@ export default function RemoveBG() {
 
         {(hasProcessedImage || isProcessing) && (
           <h2 className={[classes.bgHeading, montserrat.className].join(" ")}>
-            Here's your image
+            Here your image
           </h2>
         )}
 
